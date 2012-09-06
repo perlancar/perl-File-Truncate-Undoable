@@ -49,7 +49,7 @@ test_tx_action(
         symlink "q", "p";
     },
     status        => 412,
-) if symlink("", "");
+) if eval { symlink "", ""; 1 };
 test_tx_action(
     name          => "path is an empty file -> noop",
     tmpdir        => $tmpdir,

@@ -62,8 +62,8 @@ sub truncate {
 
     if ($tx_action eq 'check_state') {
         return [412, "File $path does not exist"]        unless $exists;
-        return [500, "File $path can't be stat'd"]       unless @st;
         return [412, "File $path is not a regular file"] if $is_sym||!$is_file;
+        return [500, "File $path can't be stat'd"]       unless @st;
         return [304, "File $path is already truncated"]  if $is_zero;
 
         $log->info("(DRY) Truncating file $path ...") if $dry_run;
