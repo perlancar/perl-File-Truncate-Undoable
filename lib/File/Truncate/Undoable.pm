@@ -1,13 +1,14 @@
 package File::Truncate::Undoable;
 
+# DATE
+# VERSION
+
 use 5.010001;
 use strict;
 use warnings;
 use Log::Any '$log';
 
 use File::Trash::Undoable;
-
-# VERSION
 
 our %SPEC;
 
@@ -88,7 +89,7 @@ sub truncate {
 }
 
 1;
-# ABSTRACT: Truncate a file, with undo support
+# ABSTRACT:
 
 =head1 SEE ALSO
 
