@@ -6,7 +6,7 @@ package File::Truncate::Undoable;
 use 5.010001;
 use strict;
 use warnings;
-use Log::Any::IfLOG '$log';
+use Log::ger;
 
 use File::Trash::Undoable;
 
@@ -67,7 +67,7 @@ sub truncate {
         return [500, "File $path can't be stat'd"]       unless @st;
         return [304, "File $path is already truncated"]  if $is_zero;
 
-        $log->info("(DRY) Truncating file $path ...") if $dry_run;
+        log_info("(DRY) Truncating file $path ...") if $dry_run;
         return [200, "File $path needs to be truncated", undef,
                 {undo_actions=>[
                     ['File::Trash::Undoable::untrash',
@@ -76,7 +76,7 @@ sub truncate {
                      {path=>$path, suffix=>substr($taid,0,8)."n"}], # trash new
                 ]}];
     } elsif ($tx_action eq 'fix_state') {
-        $log->info("Truncating file $path ...");
+        log_info("Truncating file $path ...");
         my $res = File::Trash::Undoable::trash(
             -tx_action=>'fix_state', path=>$path, suffix=>substr($taid,0,8));
         return $res unless $res->[0] == 200 || $res->[0] == 304;
